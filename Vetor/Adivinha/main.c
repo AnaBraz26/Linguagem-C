@@ -1,0 +1,69 @@
+/* 
+
+O professor Genesio recebeu várias camisetas da OBI (Organização dos Bacharéis Intelectuais)
+ para doar a seus alunos de Ciência da Computação. Para fazer a distribuição destas camisetas ele
+  organizou os alunos de cada turma do curso em pequenos grupos (de no máximo 10 pessoas) e definiu 
+  que faria o sorteio de uma camiseta para cada um dos grupos. Como Genesio não quer perder muito tempo
+   com este sorteio, ele pediu que você o ajudasse com um programa que determinasse quem foi o aluno ganhador 
+   de acordo com a seguinte regra: O primeiro de cada grupo a acertar um número escolhido pelo professor obviamente 
+   ganha a camiseta, mas se ninguém acertar este número, ganha a camiseta o primeiro que chegar o mais próximo deste número.
+
+Não faz diferença quem do grupo o professor escolhe para tentar iniciar a adivinhação.
+ Este sempre será o aluno número 1, e assim sucessivamente.
+Entrada
+
+A primeira linha de entrada contém um inteiro N que determina a quantidade de casos de teste,
+ ou de camisetas que serão sorteadas. Cada caso de teste é composto por duas linhas. 
+ A primeira linha contém dois valores inteiros QT (4 ≤ QT ≤ 10) e S (1 ≤ S ≤ 100) separados por um espaço,
+  que indicam respectivamente a quantidade de alunos do grupo e o número secreto que deve ser adivinhado.
+   A segunda linha contém cada um dos QT valores, separados por um espaço.
+Saída
+
+Para cada caso de teste, seu programa deve imprimir um número inteiro que indica a posição do ganhador
+ da camiseta, conforme as regras descritas acima.
+*/
+
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    int i, teste;
+
+    scanf("%d", &teste);
+
+    for(i = 0; i < teste; i++)
+    {
+        int qtd_alunos, numero_secreto, aux[10], indice;
+
+        scanf("%d %d", &qtd_alunos, &numero_secreto);
+
+        int chute[qtd_alunos];
+        int j;
+
+        for(j = 1; j <= qtd_alunos; j++)
+        {
+            scanf("%d", &chute[j]);
+            aux[j] = abs(chute[j] - numero_secreto);
+        }
+
+       int menor = 101;
+
+       for(j = 1; j <= qtd_alunos; j++)
+       {
+           if(chute[j] == numero_secreto)
+           {
+               indice = j;
+               break;
+           }
+           else if(menor > aux[j])
+           {
+               menor = aux[j];
+               indice = j;
+           }
+       }
+       printf("%d\n", indice);
+
+    }
+    return 0;
+}
